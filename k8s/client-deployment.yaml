@@ -9,8 +9,8 @@ spec:
       component: web
   template:
     metadata:
-      label:
-        componente: web
+      labels:
+        component: web
     spec:
       containers:
         - name: client
