@@ -12,8 +12,20 @@ spec:
       labels:
         component: postgres
     spec:
+      # Storage pieces
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
       containers:
         - name: postgres
           image: postgres
           ports:
             - containerPort: 5432
+          # Allow container to access to storage pieces
+          volumeMounts:
+            - name: postgres-storage
+              # Data to back up in the volume
+              mountPath: /var/lib/postgresql/data
+              # Location where we want to place the backed up data
+              subPath: postgres
